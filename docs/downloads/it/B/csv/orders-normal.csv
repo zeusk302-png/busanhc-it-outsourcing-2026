@@ -1,0 +1,5 @@
+order_id,supplier,product,quantity,unit_price
+O001,공급사A,키링,2,4000
+O002,공급사A,스티커,4,1000
+O003,공급사B,노트,1,3000
+O004,공급사B,키링,1,4000

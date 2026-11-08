@@ -25,3 +25,4 @@ main:focus{outline:none}.runtime-credit{font-size:11px;color:var(--muted);margin
 #game-import-status{overflow-wrap:anywhere}
 
 .table-scroll-hint{margin:10px 0 8px;font-size:12px}.compact-table th{word-break:keep-all}
+.feature-checks{min-width:700px}.feature-checks td:last-child{min-width:240px}

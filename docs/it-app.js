@@ -45,6 +45,27 @@ function openCapture(button){
  if(img.complete&&img.naturalWidth)img.onload();
 }
 function jobCard(j,withNotes=false){return `<article class="job-card" id="job-card-${E(j.id)}" tabindex="-1" aria-label="${E(j.company+' '+j.title)}"><span class="company">${E(j.company)}</span><h3>${E(j.title)}</h3><p class="job-status">${E(j.experience||'경력 조건은 원문에서 확인')} · 2026.11.09 확인</p><div class="job-tools"><b>공고에 적힌 언어·도구</b><br>${E([...j.languages,...j.tools].join(' · ')||'특정 언어·엔진명을 명시하지 않음')}</div><h4>어떤 일을 하나요?</h4>${list(j.duties.slice(0,3))}<div class="requirements"><div><h4>필수·자격에서 찾기</h4>${list(j.required.slice(0,3))}</div><div><h4>우대에서 찾기</h4>${list((j.preferred||[]).slice(0,3).length?j.preferred.slice(0,3):['명시된 조건은 원문을 확인합니다.'])}</div></div>${capture(j)}<details><summary>업무·지원 조건 더 읽기</summary><h4>업무 정리</h4>${list(j.duties)}<h4>필수·자격</h4>${list(j.required)}<h4>우대</h4>${list(j.preferred?.length?j.preferred:['우대사항은 원문에서 찾아봅니다.'])}${j.portfolio?`<p>포트폴리오: ${E(j.portfolio)}</p>`:''}<h4>11월 9일 확인한 게시 상태</h4><p class="note">${E(j.status)}</p><h4>수업에서 연결해 볼 일</h4><p>${E(j.classConnection)}</p></details><p class="source-note"><a href="${E(j.url)}" target="_blank" rel="noopener">공식 채용공고 열기 ↗</a> · 위 설명은 수업용 요약입니다.</p>${withNotes?`<div class="actions"><button class="secondary small" data-career-note="one" data-job-id="${E(j.id)}" aria-label="${E(j.company+' '+j.title+' · 첫 번째 공고로 메모')}">첫 번째로 메모</button><button class="secondary small" data-career-note="two" data-job-id="${E(j.id)}" aria-label="${E(j.company+' '+j.title+' · 두 번째 공고로 메모')}">두 번째로 메모</button></div>`:''}</article>`;}
+let tableNoteNumber=0;
+function prepareTables(root=main){
+ for(const box of root.querySelectorAll('.table-scroll')){
+  const table=box.querySelector('table');if(!table)continue;
+  if(!box.dataset.tableLabel){
+   const headings=Array.from(table.querySelectorAll('thead th')).map(th=>th.textContent.trim()).join(' / ');
+   box.dataset.tableLabel=(box.getAttribute('aria-label')||table.querySelector('caption')?.textContent||headings||'수업 비교표').replace(/\s+/g,' ').trim().slice(0,120);
+  }
+  let hint=box.previousElementSibling;
+  if(!hint?.classList.contains('table-scroll-hint')){
+   hint=document.createElement('p');hint.className='note table-scroll-hint';hint.id='table-scroll-note-'+(++tableNoteNumber);
+   hint.textContent='표를 좌우로 밀어 읽습니다. 키보드는 Tab으로 표를 선택한 뒤 ← →를 누릅니다.';box.before(hint);
+  }
+  const overflow=!box.closest('details:not([open]),[hidden]')&&box.clientWidth>0&&box.scrollWidth>box.clientWidth+1;
+  hint.hidden=!overflow;
+  const descriptions=(box.getAttribute('aria-describedby')||'').split(/\s+/).filter(id=>id&&id!==hint.id);
+  if(overflow){box.tabIndex=0;box.setAttribute('role','region');box.setAttribute('aria-label',box.dataset.tableLabel);descriptions.push(hint.id);}
+  else{box.removeAttribute('tabindex');box.removeAttribute('role');box.removeAttribute('aria-label');}
+  if(descriptions.length)box.setAttribute('aria-describedby',descriptions.join(' '));else box.removeAttribute('aria-describedby');
+ }
+}
 function careerNote(slot,label,hint){
  const chosen=CAREERS.jobs.find(j=>j.id===state.fields['job-'+slot+'-id']);
  return `<div class="career-note"><p class="note career-note-reference" id="career-reference-${slot}" ${chosen?`data-selected-job="${E(chosen.id)}"`:''}>${chosen?`고른 공고<br><b>${E(chosen.company)} · ${E(chosen.title)}</b>`:`공고의 ‘${slot==='one'?'첫 번째':'두 번째'}로 메모’ 버튼으로 대상을 고릅니다.`}</p>${F('job-'+slot,label,hint)}${chosen?`<div class="actions"><button class="secondary small" data-read-job="${E(chosen.id)}">고른 공고 다시 읽기</button><button class="secondary small" data-clear-career-note="${slot}">공고 선택 해제</button></div>`:''}</div>`;
@@ -246,7 +267,7 @@ function prompt(kind){if(kind==='python'){
  return `고등학교 웹게임 제작 수업입니다. 다음 설계로 브라우저에서 실행할 작은 게임을 만들어 주세요.\n게임 설명: ${state.fields['C-concept']||'30초 동안 물건을 모으는 게임'}\n목표·규칙·조작·상태·피드백·종료: ${state.fields['C-rules']||'방향키 이동, 좋은 물건+1점, 장애물은 체력-1, 30초 또는 체력0이면 종료, 다시하기'}\n화면과 분위기: ${state.fields['C-look']||'단순한 도형과 읽기 쉬운 점수·시간 표시'}\nHTML·CSS·JavaScript를 하나의 HTML에 넣고 전체 코드를 주세요. 외부 파일·API키·로그인·설치가 필요하지 않게 만드세요. 시작 안내와 키보드·터치 조작, 종료·재시작을 구현하세요. 우선 핵심 규칙 하나가 작동하는 버전을 만들고 바꿀 숫자에 주석을 달아 주세요. C#이나 C++ 코드로 답하지 마세요.\n이후 수정은 내 설명을 듣고 한 가지씩 진행합시다.`;
 }
 function renderNav(){document.querySelector('nav').innerHTML=[['start','시작 안내'],['careers','공고에서 역량 찾기'],['languages','언어와 도구 비교'],['hackathons','해커톤과 내 역량'],['vote','거수투표']].map(([id,name],i)=>`<a href="#${id}"><span>${i===0?'':'1교시'}</span>${name}</a>`).join('')+'<div class="nav-divider"></div>'+COURSE.tracks.map(t=>`<a href="#${t.id}"><span>${t.id}</span>${{A:'Python 자동화',B:'Java 외주 제작',C:'웹게임 설계·제작'}[t.id]}</a>${state.track===t.id?`<a href="#${t.id}2"><span>2교시</span>배우고 작은 실행</a><a href="#${t.id}3"><span>3교시</span>제작·확인·제출</a>`:''}`).join('');const id=location.hash.slice(1)||'start';document.querySelectorAll('nav a').forEach(a=>{if(a.hash==='#'+id)a.setAttribute('aria-current','page');});}
-function route(){stopPython();stopJava();stopGamePreview(false);clearInterval(timer);timer=null;const id=location.hash.slice(1)||'start';if(/^[ABC][23]?$/.test(id)){state.track=id[0];save();}renderNav();const views={start:home,home:home,careers,languages:languagePage,hackathons,vote,A:()=>overview('A'),B:()=>overview('B'),C:()=>overview('C'),A2:python2,A3:python3,B2:java2,B3:java3,C2:game2,C3:game3,submit:()=>window.IT_SUBMISSION?.studentView()||'<p>제출 화면 준비 중…</p>',teacher:()=>window.IT_SUBMISSION?.teacherView()||'<p>교사 화면 준비 중…</p>'};main.innerHTML=(views[id]||home)();main.querySelector('#balance-preview')?.setAttribute('srcdoc',makeWebGame());renderBalance();if(id==='C3'){main.querySelector('.editor-split').insertAdjacentHTML('beforebegin',gameTransferGuide());timeLeft=1800;preview();}if(id==='submit'||id==='teacher')window.IT_SUBMISSION?.mount(id);document.querySelector('aside').classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false');scrollTo(0,0);main.focus({preventScroll:true});}
+function route(){stopPython();stopJava();stopGamePreview(false);clearInterval(timer);timer=null;const id=location.hash.slice(1)||'start';if(/^[ABC][23]?$/.test(id)){state.track=id[0];save();}renderNav();const views={start:home,home:home,careers,languages:languagePage,hackathons,vote,A:()=>overview('A'),B:()=>overview('B'),C:()=>overview('C'),A2:python2,A3:python3,B2:java2,B3:java3,C2:game2,C3:game3,submit:()=>window.IT_SUBMISSION?.studentView()||'<p>제출 화면 준비 중…</p>',teacher:()=>window.IT_SUBMISSION?.teacherView()||'<p>교사 화면 준비 중…</p>'};main.innerHTML=(views[id]||home)();main.querySelector('#balance-preview')?.setAttribute('srcdoc',makeWebGame());renderBalance();prepareTables();if(id==='C3'){main.querySelector('.editor-split').insertAdjacentHTML('beforebegin',gameTransferGuide());timeLeft=1800;preview();}if(id==='submit'||id==='teacher')window.IT_SUBMISSION?.mount(id);document.querySelector('aside').classList.remove('open');document.querySelector('.menu-toggle').setAttribute('aria-expanded','false');scrollTo(0,0);main.focus({preventScroll:true});}
 document.addEventListener('toggle',event=>{if(!event.target.matches?.('.vote-examples'))return;const frame=event.target.querySelector('#vote-game-preview');if(frame)frame.srcdoc=event.target.open?makeWebGame():'';},true);
 document.addEventListener('input',event=>{const el=event.target;if(el.dataset.field){state.fields[el.dataset.field]=el.value;save();}if(el.dataset.code){state.code[el.dataset.code]=el.value;save();}if(el.dataset.code==='web-game')gameDiagnosticFeedback();const key=el.dataset.code||(el.dataset.field?.startsWith('stdin-')?el.dataset.field.slice(6):'');if(key&&state.outputs[key]!==undefined)status(key,'코드나 입력값을 수정했습니다. 아래는 이전 실행 결과입니다. 다시 실행해 확인하세요.',true);if(el.id.startsWith('balance-'))el.parentElement.querySelector('output').textContent=el.value;});
 document.addEventListener('click',async event=>{if(event.target.closest('.skip')){event.preventDefault();main.focus();scrollTo(0,0);return;}const el=event.target.closest('button');if(!el)return;
@@ -258,7 +279,7 @@ document.addEventListener('click',async event=>{if(event.target.closest('.skip')
  if(el.dataset.clearCareerNote&&['one','two'].includes(el.dataset.clearCareerNote)){state.fields['job-'+el.dataset.clearCareerNote+'-id']='';save();main.innerHTML=careers();focusCareerNote(el.dataset.clearCareerNote);}
  if(el.dataset.readJob){const job=CAREERS.jobs.find(j=>j.id===el.dataset.readJob);if(job){let card=main.querySelector('#job-card-'+job.id);if(!card){careerFilter=job.sector;main.innerHTML=careers();card=main.querySelector('#job-card-'+job.id);}card?.scrollIntoView({block:'start'});card?.focus({preventScroll:true});}}
  if(el.id==='open-career-notes')focusCareerNote();
- if(el.dataset.language){language=el.dataset.language;main.innerHTML=languagePage();main.querySelector(`[data-language="${language}"]`)?.focus();}
+ if(el.dataset.language){language=el.dataset.language;main.innerHTML=languagePage();prepareTables();main.querySelector(`[data-language="${language}"]`)?.focus();}
  if(el.dataset.trackDemo)showVoteDemo(el.dataset.trackDemo);
  if(el.dataset.track){state.track=el.dataset.track;save();location.hash=el.dataset.track;}
  if(el.dataset.capture)openCapture(el);
@@ -285,9 +306,13 @@ addEventListener('message',event=>{if(event.origin===COURSE.api&&javaFrame&&even
  if(event.data.type==='result'&&event.data.id===javaFrame.dataset.run){clearTimeout(javaTimer);const run=javaRunSnapshot;if(run)completeCodeRun(run.key,event.data.output,run.code,run.input,'Java 컴파일·실행 응답 · 현재 코드와 입력값의 결과를 확인하세요.');delete javaFrame.dataset.run;javaRunSnapshot=null;}
  if(event.data.type==='error'){javaWait?.reject(Error(event.data.message));javaWait=null;clearTimeout(javaTimer);const key=javaFrame.dataset.key;if(key)status(key,event.data.message);delete javaFrame.dataset.run;javaRunSnapshot=null;}
  }
- const balance=document.querySelector('#balance-preview');if(balance&&event.source===balance.contentWindow&&event.data?.channel==='busanhc-game'&&event.data.type==='result'){state.balance.push({...event.data,round:(state.balance.at(-1)?.round||state.balance.length)+1,at:new Date().toISOString()});state.balance=state.balance.slice(-30);save();renderBalance();}
+ const balance=document.querySelector('#balance-preview');if(balance&&event.source===balance.contentWindow&&event.data?.channel==='busanhc-game'&&event.data.type==='result'){state.balance.push({...event.data,round:(state.balance.at(-1)?.round||state.balance.length)+1,at:new Date().toISOString()});state.balance=state.balance.slice(-30);save();renderBalance();prepareTables();}
 });
 window.IT_APP={state,E,save,toast,download,F,title,section,route,prompt,main};
 addEventListener('message',gameDiagnosticMessage);
+document.addEventListener('toggle',event=>{if(event.target.tagName==='DETAILS')prepareTables(event.target);},true);
+let tableResizeFrame=0;
+addEventListener('resize',()=>{cancelAnimationFrame(tableResizeFrame);tableResizeFrame=requestAnimationFrame(()=>prepareTables());});
+document.fonts?.ready.then(()=>prepareTables());
 addEventListener('hashchange',route);addEventListener('it-submission-ready',()=>{if(['#submit','#teacher'].includes(location.hash))route();});route();
 })();

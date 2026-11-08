@@ -489,17 +489,17 @@ window.CAREERS = {
       "registration": "2026-09-21~09-28 17:00",
       "final": "2026-11-11",
       "status": "모집 마감·본선 예정(11월9일 기준)",
-      "eligibility": "만18세 이상 또는 2027년3월 이내 고등학교 졸업(예정)자. 개인 참가. 고2 모두 참가 가능하다고 표시하면 안 됨.",
+      "eligibility": "만 18세 이상 또는 2027년 3월 이내 고등학교 졸업(예정)자. 개인 참가.",
       "task": "반도체 현장 문제를 AI로 해결",
       "evaluation": [
-        "문제 정의",
-        "AI 활용",
-        "결과 검증",
-        "문제 해결 과정과 작동 결과물"
+        "AI를 활용하는 논리와 문제 해결 과정",
+        "실제 반도체 현장의 과제",
+        "동작하는 결과물로 설명"
       ],
-      "classConnection": "AI에 질문한 횟수보다 문제·확인 방법·실제로 동작하는 결과를 평가하는 이유",
+      "classConnection": "풀 문제를 정하고, 해결 과정을 기록하고, 실제로 동작하는 결과를 보여 주기",
       "captureUrl": "https://talent.skhynix.com/hub/ko/company/story/237",
       "captureDescription": "주최 기업 공식 발표의 제목·접수 일정 발췌",
+      "evaluationLabel": "공식 안내가 강조하는 세 가지",
       "capture": "assets/it-careers/skhynix-ai-2026.jpg?v=a4dc19a68a"
     },
     {
@@ -510,7 +510,7 @@ window.CAREERS = {
       "registration": "2026-06-08~07-03",
       "final": "2026-08-21~08-22",
       "status": "종료·2026-09-09 결과 발표",
-      "eligibility": "만19세 이상 내국인, 4인 이하 팀(1인 가능). 학생 참가 모집으로 안내하지 않음.",
+      "eligibility": "만 19세 이상 내국인. 4인 이하 팀이며 1인 참가도 가능.",
       "task": "실제 기상 데이터나 파생 모델·시나리오를 직접 조작하며 배우는 웹 기반 도구",
       "evaluation": {
         "주제 적합성": 20,
@@ -520,6 +520,8 @@ window.CAREERS = {
         "실현 가능성": 30
       },
       "classConnection": "게임·웹사이트도 학습과 문제 해결의 결과물이 될 수 있음. 조작·테스트·설명으로 오늘 작품 확인.",
+      "evaluationLabel": "공개된 심사 기준 · 100점",
+      "evaluationUnit": "점",
       "capture": "assets/it-careers/weather-ai-2026.jpg?v=cf05e98a98"
     },
     {
@@ -528,8 +530,8 @@ window.CAREERS = {
       "publisher": "교육부·한국연구재단·COSS / 충남대학교·한국AI블록체인융합원",
       "url": "https://blockhack.kr/",
       "final": "2026-11-06~11-07",
-      "status": "일정상 종료(최종 시상 결과 별도 미확인)",
-      "eligibility": "대학생 대상 표기. 고등학생 대상 참가 모집으로 안내하지 않음.",
+      "status": "공개된 본선 일정: 11월 6–7일 · 결과 발표는 공식 자료에서 확인",
+      "eligibility": "국내 대학 재학생·휴학생·수료생. 2~4인 팀, 개인 신청 시 팀원 매칭 지원.",
       "task": "블록체인 필수·AI 융합 프로젝트의 기획·설계·프로토타입·GitHub 코드 및 작동 시연",
       "evaluation": {
         "창의성": 20,
@@ -540,6 +542,8 @@ window.CAREERS = {
       },
       "classConnection": "아이디어와 구현 가능한 범위, 실제 시연을 함께 확인",
       "registration": "2026-09-14 18:00 마감",
+      "evaluationLabel": "본선 발표·시연 심사 비중 · 합계 100%",
+      "evaluationUnit": "%",
       "capture": "assets/it-careers/block-ai-2026.jpg?v=34c23799f9"
     }
   ]

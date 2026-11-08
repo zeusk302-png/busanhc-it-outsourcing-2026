@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>우주 보급품 수집 게임</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0B0E14; /* 짙은 남색 배경 */
+            font-family: 'Pretendard', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 게임 컨테이너 */
+        #game-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 900px;
+            max-height: 650px;
+            background-color: #0F1420;
+            box-shadow: 0 0 30px rgba(0, 245, 212, 0.15);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 게임 캔버스 */
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background-color: #0B0E14;
+            cursor: crosshair;
+        }
+
+        /* 상단 UI 레이어 */
+        #ui-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .hud-card {
+            background: rgba(15, 20, 32, 0.75);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .hud-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        #score-val { color: #FFD166; } /* 노란색 점수 */
+        #hp-val { color: #FF4D6D; }    /* 빨간색 체력 */
+        #time-val { color: #00F5D4; }  /* 민트색 시간 */
+
+        /* 화면 오버레이 (시작, 결과 화면) */
+        .modal-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 14, 20, 0.92);
+            backdrop-filter: blur(6px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: #00F5D4;
+            text-shadow: 0 0 15px rgba(0, 245, 212, 0.4);
+        }
+
+        p {
+            font-size: 15px;
+            color: #A0AABF;
+            line-height: 1.6;
+            max-width: 420px;
+            margin-bottom: 24px;
+        }
+
+        .guide-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 28px;
+            text-align: left;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .guide-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #D1D9E6;
+        }
+
+        .guide-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .icon-badge {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* 시작 & 재시작 버튼 */
+        .btn {
+            background: linear-gradient(135deg, #00F5D4 0%, #00B4D8 100%);
+            color: #0B0E14;
+            border: none;
+            padding: 14px 36px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 245, 212, 0.35);
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 245, 212, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        /* 결과 타이틀 스타일 */
+        .result-win { color: #00F5D4 !important; }
+        .result-lose { color: #FF4D6D !important; }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <!-- 상단 게임 정보 표시줄 (HUD) -->
+        <div id="ui-overlay">
+            <div class="hud-card">⭐ 보급품: <span id="score-val" class="hud-value">0</span> / 10</div>
+            <div class="hud-card">❤️ 체력: <span id="hp-val" class="hud-value">3</span></div>
+            <div class="hud-card">⏱️ 남은 시간: <span id="time-val" class="hud-value">30</span>초</div>
+        </div>
+
+        <!-- 게임 렌더링 캔버스 -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- 1. 게임 시작 안내 화면 -->
+        <div id="start-screen" class="modal-screen">
+            <h1>🚀 우주 보급품 수집</h1>
+            <p>우주선을 조작하여 제한 시간 내에 별 보급품을 모으세요!</p>
+            
+            <div class="guide-box">
+                <div class="guide-item">
+                    <span class="icon-badge" style="background:#FFD166; color:#000;">★</span>
+                    <span><b>노란 별</b> : 보급품 수집 (+1점, 목표 10점)</span>
+                </div>
+                <div class="guide-item">
+                    <span class="icon-badge" style="background:#FF4D6D; color:#fff;">!</span>
+                    <span><b>빨간 장애물</b> : 충돌 시 체력 감소 (-1 HP)</span>
+                </div>
+                <div class="guide-item">
+                    <span class="icon-badge" style="background:#00F5D4; color:#000;">🎮</span>
+                    <span><b>조작 방법</b> : 키보드 방향키 / 마우스 이동 / 터치</span>
+                </div>
+            </div>
+
+            <button id="start-btn" class="btn">게임 시작</button>
+        </div>
+
+        <!-- 2. 게임 종료 / 결과 화면 -->
+        <div id="end-screen" class="modal-screen hidden">
+            <h1 id="result-title">미션 성공!</h1>
+            <p id="result-desc">우주 임무를 완벽하게 완수했습니다.</p>
+            <button id="restart-btn" class="btn">다시 시작하기</button>
+        </div>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           [학생 실습용] 변수 조절 구간 - 난이도를 직접 변경해보세요!
+           ========================================================================== */
+        const GAME_CONFIG = {
+            GAME_TIME: 30,         /* [수정 가능] 제한 시간 (초) */
+            TARGET_SCORE: 10,      /* [수정 가능] 목표 보급품 개수 */
+            MAX_HP: 3,             /* [수정 가능] 최대 체력 */
+            PLAYER_SPEED: 6,       /* [수정 가능] 키보드 조작 시 우주선 이동 속도 */
+            SPAWN_STAR_INTERVAL: 800,   /* [수정 가능] 별 생성 간격 (밀리초, 1000 = 1초) */
+            SPAWN_HAZARD_INTERVAL: 1200 /* [수정 가능] 장애물 생성 간격 (밀리초) */
+        };
+
+        /* ==========================================================================
+           게임 엔진 및 상태 관리 코드
+           ========================================================================== */
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // UI 요소
+        const scoreVal = document.getElementById('score-val');
+        const hpVal = document.getElementById('hp-val');
+        const timeVal = document.getElementById('time-val');
+        const startScreen = document.getElementById('start-screen');
+        const endScreen = document.getElementById('end-screen');
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const resultTitle = document.getElementById('result-title');
+        const resultDesc = document.getElementById('result-desc');
+
+        // 게임 변수
+        let gameState = 'START'; // START, PLAYING, GAMEOVER
+        let score = 0;
+        let hp = GAME_CONFIG.MAX_HP;
+        let timeLeft = GAME_CONFIG.GAME_TIME;
+        let lastTime = 0;
+        let timerInterval = null;
+        let starSpawnTimer = null;
+        let hazardSpawnTimer = null;
+
+        // 키보드 입력 상태
+        const keys = { ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false, w: false, a: false, s: false, d: false };
+
+        // 플레이어 (우주선) 객체
+        const player = {
+            x: 0,
+            y: 0,
+            radius: 16,
+            color: '#00F5D4', // 민트색
+            targetX: null,
+            targetY: null
+        };
+
+        // 게임 오브젝트 배열
+        let stars = [];
+        let hazards = [];
+        let backgroundStars = [];
+
+        // 캔버스 크기 맞춤
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+
+            // 배경 우주 먼지/별 생성
+            if (backgroundStars.length === 0) {
+                for (let i = 0; i < 60; i++) {
+                    backgroundStars.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        size: Math.random() * 2 + 0.5,
+                        alpha: Math.random() * 0.8 + 0.2
+                    });
+                }
+            }
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        /* --------------------------------------------------------------------------
+           게임 초기화 및 시작
+           -------------------------------------------------------------------------- */
+        function initGame() {
+            score = 0;
+            hp = GAME_CONFIG.MAX_HP;
+            timeLeft = GAME_CONFIG.GAME_TIME;
+            
+            player.x = canvas.width / 2;
+            player.y = canvas.height / 2;
+            player.targetX = null;
+            player.targetY = null;
+
+            stars = [];
+            hazards = [];
+
+            // UI 갱신
+            updateUI();
+
+            // 초기 보급품 몇 개 미리 생성
+            for (let i = 0; i < 3; i++) spawnStar();
+        }
+
+        function startGame() {
+            initGame();
+            gameState = 'PLAYING';
+
+            startScreen.classList.add('hidden');
+            endScreen.classList.add('hidden');
+
+            // 타이머 시작 (1초 마다)
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (gameState === 'PLAYING') {
+                    timeLeft--;
+                    updateUI();
+                    if (timeLeft <= 0) {
+                        checkGameEnd();
+                    }
+                }
+            }, 1000);
+
+            // 객체 자동 생성 타이머
+            clearInterval(starSpawnTimer);
+            starSpawnTimer = setInterval(() => {
+                if (gameState === 'PLAYING' && stars.length < 6) spawnStar();
+            }, GAME_CONFIG.SPAWN_STAR_INTERVAL);
+
+            clearInterval(hazardSpawnTimer);
+            hazardSpawnTimer = setInterval(() => {
+                if (gameState === 'PLAYING' && hazards.length < 8) spawnHazard();
+            }, GAME_CONFIG.SPAWN_HAZARD_INTERVAL);
+
+            // 게임 루프 실행
+            requestAnimationFrame(gameLoop);
+        }
+
+        /* --------------------------------------------------------------------------
+           오브젝트 생성 함수들
+           -------------------------------------------------------------------------- */
+        function spawnStar() {
+            const padding = 30;
+            stars.push({
+                x: padding + Math.random() * (canvas.width - padding * 2),
+                y: padding + Math.random() * (canvas.height - padding * 2),
+                radius: 12,
+                color: '#FFD166', // 노란색
+                pulse: Math.random() * Math.PI
+            });
+        }
+
+        function spawnHazard() {
+            const padding = 30;
+            // 속도 및 방향 무작위 설정
+            const speed = 1.5 + Math.random() * 2.5;
+            const angle = Math.random() * Math.PI * 2;
+
+            hazards.push({
+                x: padding + Math.random() * (canvas.width - padding * 2),
+                y: padding + Math.random() * (canvas.height - padding * 2),
+                radius: 14,
+                color: '#FF4D6D', // 빨간색
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed
+            });
+        }
+
+        /* --------------------------------------------------------------------------
+           업데이트 및 충돌 처리
+           -------------------------------------------------------------------------- */
+        function update() {
+            if (gameState !== 'PLAYING') return;
+
+            // 1. 키보드 조작으로 이동
+            let moveX = 0;
+            let moveY = 0;
+
+            if (keys.ArrowUp || keys.w) moveY -= 1;
+            if (keys.ArrowDown || keys.s) moveY += 1;
+            if (keys.ArrowLeft || keys.a) moveX -= 1;
+            if (keys.ArrowRight || keys.d) moveX += 1;
+
+            if (moveX !== 0 || moveY !== 0) {
+                // 대각선 이동 속도 보정
+                const len = Math.hypot(moveX, moveY);
+                player.x += (moveX / len) * GAME_CONFIG.PLAYER_SPEED;
+                player.y += (moveY / len) * GAME_CONFIG.PLAYER_SPEED;
+                player.targetX = null; // 키보드 입력 시 마우스 목표 해제
+            } 
+            // 2. 마우스 / 터치 목표 위치로 이동
+            else if (player.targetX !== null && player.targetY !== null) {
+                const dx = player.targetX - player.x;
+                const dy = player.targetY - player.y;
+                const dist = Math.hypot(dx, dy);
+
+                if (dist > 5) {
+                    player.x += (dx / dist) * GAME_CONFIG.PLAYER_SPEED;
+                    player.y += (dy / dist) * GAME_CONFIG.PLAYER_SPEED;
+                } else {
+                    player.targetX = null;
+                    player.targetY = null;
+                }
+            }
+
+            // 화면 밖으로 나가지 않도록 범위 제한
+            player.x = Math.max(player.radius, Math.min(canvas.width - player.radius, player.x));
+            player.y = Math.max(player.radius, Math.min(canvas.height - player.radius, player.y));
+
+            // 장애물 위치 업데이트 (벽 반사 이동)
+            hazards.forEach(h => {
+                h.x += h.vx;
+                h.y += h.vy;
+
+                if (h.x - h.radius < 0 || h.x + h.radius > canvas.width) h.vx *= -1;
+                if (h.y - h.radius < 0 || h.y + h.radius > canvas.height) h.vy *= -1;
+            });
+
+            // 별 pulsing 애니메이션 효과
+            stars.forEach(s => s.pulse += 0.05);
+
+            // 3. 충돌 검사 (별 수집)
+            for (let i = stars.length - 1; i >= 0; i--) {
+                const dist = Math.hypot(player.x - stars[i].x, player.y - stars[i].y);
+                if (dist < player.radius + stars[i].radius) {
+                    stars.splice(i, 1);
+                    score += 1;
+                    updateUI();
+                    
+                    // 핵심 규칙 1: 목표 점수 달성 확인
+                    if (score >= GAME_CONFIG.TARGET_SCORE) {
+                        endGame(true);
+                        return;
+                    }
+                }
+            }
+
+            // 4. 충돌 검사 (장애물 충돌)
+            for (let i = hazards.length - 1; i >= 0; i--) {
+                const dist = Math.hypot(player.x - hazards[i].x, player.y - hazards[i].y);
+                if (dist < player.radius + hazards[i].radius) {
+                    hazards.splice(i, 1); // 충돌한 장애물 제거
+                    hp -= 1;
+                    updateUI();
+
+                    // 화면 흔들림 효과 (체력 감소 시 피드백)
+                    canvas.style.transform = 'translate(4px, 4px)';
+                    setTimeout(() => canvas.style.transform = 'translate(0, 0)', 50);
+
+                    if (hp <= 0) {
+                        endGame(false);
+                        return;
+                    }
+                }
+            }
+        }
+
+        /* --------------------------------------------------------------------------
+           시각적 렌더링 (그리기)
+           -------------------------------------------------------------------------- */
+        function draw() {
+            // 배경 청소
+            ctx.fillStyle = '#0B0E14';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 배경 우주 별 렌더링
+            backgroundStars.forEach(s => {
+                ctx.fillStyle = `rgba(255, 255, 255, ${s.alpha})`;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            if (gameState !== 'PLAYING') return;
+
+            // 보급품 (별) 그리기
+            stars.forEach(s => {
+                const r = s.radius + Math.sin(s.pulse) * 2;
+                ctx.fillStyle = s.color;
+                ctx.shadowColor = s.color;
+                ctx.shadowBlur = 10;
+                
+                // 5角 별 그리기
+                drawStarShape(ctx, s.x, s.y, 5, r, r / 2);
+                ctx.shadowBlur = 0;
+            });
+
+            // 빨간 장애물 그리기
+            hazards.forEach(h => {
+                ctx.fillStyle = h.color;
+                ctx.shadowColor = h.color;
+                ctx.shadowBlur = 12;
+                ctx.beginPath();
+                ctx.arc(h.x, h.y, h.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                // 장애물 중앙 아이콘/디테일
+                ctx.fillStyle = '#0B0E14';
+                ctx.beginPath();
+                ctx.arc(h.x, h.y, h.radius * 0.4, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+
+            // 우주선 (민트색 삼각형 플레이어) 그리기
+            ctx.save();
+            ctx.translate(player.x, player.y);
+
+            // 이동 방향 계산하여 우주선 회전
+            let angle = -Math.PI / 2; // 기본 위쪽
+            if (player.targetX !== null && player.targetY !== null) {
+                angle = Math.atan2(player.targetY - player.y, player.targetX - player.x);
+            }
+            ctx.rotate(angle);
+
+            // 우주선 본체 (민트색)
+            ctx.fillStyle = player.color;
+            ctx.shadowColor = player.color;
+            ctx.shadowBlur = 15;
+            ctx.beginPath();
+            ctx.moveTo(player.radius + 4, 0);
+            ctx.lineTo(-player.radius, -player.radius + 4);
+            ctx.lineTo(-player.radius + 4, 0);
+            ctx.lineTo(-player.radius, player.radius - 4);
+            ctx.closePath();
+            ctx.fill();
+
+            // 조종석 노란 포인트
+            ctx.fillStyle = '#FFD166';
+            ctx.beginPath();
+            ctx.arc(0, 0, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        // 별 모양 그리기 보조 함수
+        function drawStarShape(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+            let rot = Math.PI / 2 * 3;
+            let x = cx;
+            let y = cy;
+            let step = Math.PI / spikes;
+
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - outerRadius);
+            for (let i = 0; i < spikes; i++) {
+                x = cx + Math.cos(rot) * outerRadius;
+                y = cy + Math.sin(rot) * outerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+
+                x = cx + Math.cos(rot) * innerRadius;
+                y = cy + Math.sin(rot) * innerRadius;
+                ctx.lineTo(x, y);
+                rot += step;
+            }
+            ctx.lineTo(cx, cy - outerRadius);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        /* --------------------------------------------------------------------------
+           게임 루프 & 종료 처리
+           -------------------------------------------------------------------------- */
+        function gameLoop() {
+            if (gameState === 'PLAYING') {
+                update();
+                draw();
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        function updateUI() {
+            scoreVal.textContent = score;
+            hpVal.textContent = hp;
+            timeVal.textContent = timeLeft;
+        }
+
+        function checkGameEnd() {
+            if (score >= GAME_CONFIG.TARGET_SCORE) {
+                endGame(true);
+            } else {
+                endGame(false);
+            }
+        }
+
+        function endGame(isWin) {
+            gameState = 'GAMEOVER';
+            clearInterval(timerInterval);
+            clearInterval(starSpawnTimer);
+            clearInterval(hazardSpawnTimer);
+
+            endScreen.classList.remove('hidden');
+
+            if (isWin) {
+                resultTitle.textContent = "🎉 미션 성공!";
+                resultTitle.className = "result-win";
+                resultDesc.textContent = `축하합니다! ${GAME_CONFIG.GAME_TIME - timeLeft}초 만에 보급품 ${score}개를 무사히 확보했습니다.`;
+            } else {
+                resultTitle.textContent = "💥 미션 실패...";
+                resultTitle.className = "result-lose";
+                if (hp <= 0) {
+                    resultDesc.textContent = "장애물과 계속 충돌하여 우주선의 체력이 모두 고갈되었습니다.";
+                } else {
+                    resultDesc.textContent = "제한 시간 30초가 지났습니다. 보급품을 모두 모으지 못했습니다.";
+                }
+            }
+        }
+
+        /* --------------------------------------------------------------------------
+           입력 이벤트 (키보드, 마우스, 터치)
+           -------------------------------------------------------------------------- */
+        // 키보드 이벤트
+        window.addEventListener('keydown', e => {
+            if (keys.hasOwnProperty(e.key)) {
+                keys[e.key] = true;
+            }
+        });
+
+        window.addEventListener('keyup', e => {
+            if (keys.hasOwnProperty(e.key)) {
+                keys[e.key] = false;
+            }
+        });
+
+        // 마우스 & 터치 좌표 얻기 보조 함수
+        function setTargetFromEvent(clientX, clientY) {
+            const rect = canvas.getBoundingClientRect();
+            player.targetX = clientX - rect.left;
+            player.targetY = clientY - rect.top;
+        }
+
+        // 마우스 클릭 및 드래그
+        canvas.addEventListener('mousedown', e => {
+            if (gameState === 'PLAYING') setTargetFromEvent(e.clientX, e.clientY);
+        });
+
+        canvas.addEventListener('mousemove', e => {
+            if (gameState === 'PLAYING' && e.buttons === 1) { // 마우스 좌클릭 누른 채 이동 시
+                setTargetFromEvent(e.clientX, e.clientY);
+            }
+        });
+
+        // 터치 이벤트 (모바일 대응)
+        canvas.addEventListener('touchstart', e => {
+            if (gameState === 'PLAYING' && e.touches.length > 0) {
+                setTargetFromEvent(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        canvas.addEventListener('touchmove', e => {
+            if (gameState === 'PLAYING' && e.touches.length > 0) {
+                setTargetFromEvent(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        // 버튼 클릭 이벤트
+        startBtn.addEventListener('click', startGame);
+        restartBtn.addEventListener('click', startGame);
+
+        // 최초 배경 그리기를 위한 실행
+        draw();
+    </script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+# Preserve captured AI teaching drafts byte-for-byte, including original whitespace.
+docs/downloads/it-game/*.html -text whitespace=-trailing-space,cr-at-eol

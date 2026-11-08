@@ -15,3 +15,5 @@ main:focus{outline:none}.runtime-credit{font-size:11px;color:var(--muted);margin
 .balance-history{min-width:680px}.balance-history caption{text-align:left;color:var(--muted);font-size:13px;padding:0 0 10px}.balance-history tbody th{background:white;white-space:nowrap}.balance-history td:nth-child(2){white-space:nowrap}.balance-history td:nth-child(3){min-width:180px;max-width:360px}
 
 .editor-status.previous-result{color:#873b20;background:#fff0e8;border-left:3px solid #c47718;padding:10px 13px}
+
+#work-submit:disabled{opacity:.7;cursor:not-allowed}#selected-file{overflow-wrap:anywhere}#selected-file.danger-text{border-left:3px solid #c47718;background:#fff0e8;color:#873b20;padding:10px 13px}

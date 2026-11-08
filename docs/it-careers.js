@@ -35,7 +35,7 @@ window.CAREERS = {
         "출시·라이브 서비스 경험"
       ],
       "classConnection": "게임의 화면·규칙·데이터·검수를 나누어 설계. 오늘 HTML 웹게임이 해당 직무 전체 능력을 충족한다는 뜻은 아님.",
-      "capture": "assets/it-careers/nexon-client.jpg"
+      "capture": "assets/it-careers/nexon-client.jpg?v=515fbfceac"
     },
     {
       "id": "neople-unity",
@@ -70,7 +70,7 @@ window.CAREERS = {
       ],
       "portfolio": "선택 제출로 명시됨",
       "classConnection": "엔진/언어 조합이 프로젝트별로 다름. 입력과 상태, 전투 규칙, 실행 후 수정 연결.",
-      "capture": "assets/it-careers/neople-unity.jpg"
+      "capture": "assets/it-careers/neople-unity.jpg?v=c9509db628"
     },
     {
       "id": "netmarble-security",
@@ -103,7 +103,7 @@ window.CAREERS = {
         "AI 활용 보안 서비스"
       ],
       "classConnection": "같은 게임 분야에도 개발·보안·QA 등 역할이 다름. 입력값 확인과 비정상 동작 검사를 수업에 연결.",
-      "capture": "assets/it-careers/netmarble-security.jpg"
+      "capture": "assets/it-careers/netmarble-security.jpg?v=8b539b4aa4"
     },
     {
       "id": "netmarble-vlm",
@@ -136,7 +136,7 @@ window.CAREERS = {
         "실시간 처리 최적화"
       ],
       "classConnection": "AI가 답을 만드는 것뿐 아니라 결과 검증·실패 복구도 일이라는 점. 두 트랙 요구사항을 섞지 말 것.",
-      "capture": "assets/it-careers/netmarble-vlm.jpg"
+      "capture": "assets/it-careers/netmarble-vlm.jpg?v=2a6be2cda5"
     },
     {
       "id": "nc-balance",
@@ -168,7 +168,7 @@ window.CAREERS = {
         "여러 직군과 소통"
       ],
       "classConnection": "속도·생성 간격·점수·체력을 한 번에 하나 바꾸고 플레이 기록으로 비교. 밸런싱 역할에 특정 엔진·C++가 필수라고 덧붙이지 말 것.",
-      "capture": "assets/it-careers/nc-balance.jpg"
+      "capture": "assets/it-careers/nc-balance.jpg?v=f4985c9fde"
     },
     {
       "id": "krafton-system",
@@ -194,7 +194,7 @@ window.CAREERS = {
       ],
       "portfolio": "필수",
       "classConnection": "게임 구성요소를 문장·그림·수치표로 먼저 설계하고 친구 피드백 반영. 공고에 언어·엔진 요구사항이 없으므로 추측 금지.",
-      "capture": "assets/it-careers/krafton-system.jpg"
+      "capture": "assets/it-careers/krafton-system.jpg?v=b11fc82bb2"
     },
     {
       "id": "krafton-vla",
@@ -224,7 +224,7 @@ window.CAREERS = {
         "다른 직군과 협업"
       ],
       "classConnection": "입력→판단→행동→관찰로 AI와 게임을 연결하되 물리 로봇 채용으로 표시하지 말 것. 특정 언어가 공고에 없음을 명시.",
-      "capture": "assets/it-careers/krafton-vla.jpg"
+      "capture": "assets/it-careers/krafton-vla.jpg?v=903bbbcdee"
     },
     {
       "id": "kakao-java",
@@ -255,7 +255,7 @@ window.CAREERS = {
         "성능 분석"
       ],
       "classConnection": "Java 기반 업무 시스템의 실제 예. JavaScript와 다른 언어이며 브라우저에서 Java 소스가 그대로 실행되지는 않음. 견적 계산 요구사항·예외 검사를 작은 학습 과제로 연결.",
-      "capture": "assets/it-careers/kakao-java.jpg"
+      "capture": "assets/it-careers/kakao-java.jpg?v=f2eb970a6e"
     },
     {
       "id": "kakao-health-data",
@@ -291,7 +291,7 @@ window.CAREERS = {
         "데이터 정합성과 장애 대응"
       ],
       "classConnection": "목록·계산·검증·저장을 구분해 보고 작은 업무 도구 제작과 연결. 이 직무 기술스택은 언어별 우열이 아닌 함께 사용하는 사례.",
-      "capture": "assets/it-careers/kakao-health-data.jpg"
+      "capture": "assets/it-careers/kakao-health-data.jpg?v=7cbe057899"
     },
     {
       "id": "naver-robot-vision",
@@ -330,7 +330,7 @@ window.CAREERS = {
         "AI에이전트로 개발 생산성 개선"
       ],
       "classConnection": "비전은 영상·공간을 읽는 일, 피지컬 AI는 이를 실제 환경의 행동·검증에 연결하는 일로 설명. 영상 인식이 곧 로봇 제어 전체는 아님.",
-      "capture": "assets/it-careers/naver-robot-vision.jpg"
+      "capture": "assets/it-careers/naver-robot-vision.jpg?v=d026406e79"
     },
     {
       "id": "toss-frontend",
@@ -357,7 +357,7 @@ window.CAREERS = {
         "도구·패키지·배포 경험"
       ],
       "classConnection": "사용자가 조작하는 웹 화면과 개발 도구·배포를 구분. HTML/CSS/JavaScript 입문에서 TypeScript/React로 확장 가능.",
-      "capture": "assets/it-careers/toss-frontend.jpg"
+      "capture": "assets/it-careers/toss-frontend.jpg?v=7f90a51b81"
     },
     {
       "id": "toss-data",
@@ -385,7 +385,7 @@ window.CAREERS = {
       ],
       "portfolio": "필수",
       "classConnection": "Python이 모든 데이터 직무의 필수 언어라고 단정하지 않기. 손계산·결과 비교·쉬운 설명과 연결.",
-      "capture": "assets/it-careers/toss-data.jpg"
+      "capture": "assets/it-careers/toss-data.jpg?v=e3582245d7"
     },
     {
       "id": "hanwha-defense-data",
@@ -430,7 +430,7 @@ window.CAREERS = {
         "시계열·최적화 모델링"
       ],
       "classConnection": "방산에도 데이터·재고·정비 분야가 있음을 살펴보고, Python 판매·재고의 기본 집계와 연결. 간단한 재고 도구는 수요예측 AI와 다름.",
-      "capture": "assets/it-careers/hanwha-defense-data.jpg"
+      "capture": "assets/it-careers/hanwha-defense-data.jpg?v=bcb87a41f0"
     },
     {
       "id": "hanwha-physical-pm",
@@ -476,7 +476,7 @@ window.CAREERS = {
         "제조자동화 기술제안"
       ],
       "classConnection": "피지컬 AI에는 모델 연구 이외에 요구사항·고객 대화·시스템 통합을 맡는 역할도 있음. 원문에 언어가 없으므로 Python/C++ 필수라고 추가하지 않음.",
-      "capture": "assets/it-careers/hanwha-physical-pm.jpg"
+      "capture": "assets/it-careers/hanwha-physical-pm.jpg?v=f1e2b7113c"
     }
   ],
   "hackathons": [
@@ -498,7 +498,9 @@ window.CAREERS = {
         "문제 해결 과정과 작동 결과물"
       ],
       "classConnection": "AI에 질문한 횟수보다 문제·확인 방법·실제로 동작하는 결과를 평가하는 이유",
-      "capture": "assets/it-careers/skhynix-ai-2026.jpg"
+      "captureUrl": "https://talent.skhynix.com/hub/ko/company/story/237",
+      "captureDescription": "주최 기업 공식 발표의 제목·접수 일정 발췌",
+      "capture": "assets/it-careers/skhynix-ai-2026.jpg?v=a4dc19a68a"
     },
     {
       "id": "weather-ai-2026",
@@ -518,7 +520,7 @@ window.CAREERS = {
         "실현 가능성": 30
       },
       "classConnection": "게임·웹사이트도 학습과 문제 해결의 결과물이 될 수 있음. 조작·테스트·설명으로 오늘 작품 확인.",
-      "capture": "assets/it-careers/weather-ai-2026.jpg"
+      "capture": "assets/it-careers/weather-ai-2026.jpg?v=cf05e98a98"
     },
     {
       "id": "block-ai-2026",
@@ -538,7 +540,7 @@ window.CAREERS = {
       },
       "classConnection": "아이디어와 구현 가능한 범위, 실제 시연을 함께 확인",
       "registration": "2026-09-14 18:00 마감",
-      "capture": "assets/it-careers/block-ai-2026.jpg"
+      "capture": "assets/it-careers/block-ai-2026.jpg?v=34c23799f9"
     }
   ]
 };

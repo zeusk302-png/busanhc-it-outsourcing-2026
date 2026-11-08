@@ -9,7 +9,7 @@ window.CAREERS = {
       "title": "[빈딕투스: 디파잉 페이트] 클라이언트 프로그래머",
       "url": "https://careers.nexon.com/recruit/10400",
       "published": "2026-10-08",
-      "status": "공개 API에서 미마감으로 확인; 채용 완료 시 조기 종료 가능",
+      "status": "확인일 기준 마감되지 않은 공고입니다. 채용이 완료되면 일찍 종료될 수 있습니다.",
       "experience": "경력 10년 이상",
       "languages": [
         "C++"
@@ -34,7 +34,7 @@ window.CAREERS = {
         "PC·콘솔 UI",
         "출시·라이브 서비스 경험"
       ],
-      "classConnection": "게임의 화면·규칙·데이터·검수를 나누어 설계. 오늘 HTML 웹게임이 해당 직무 전체 능력을 충족한다는 뜻은 아님.",
+      "classConnection": "웹게임의 화면·규칙·데이터를 나누어 설계하고, 실행한 뒤 예상과 다른 동작을 찾아봅니다. 게임 클라이언트 개발에 필요한 여러 역량 중 일부를 작게 연습하는 활동입니다.",
       "capture": "assets/it-careers/nexon-client.jpg?v=515fbfceac"
     },
     {
@@ -44,7 +44,7 @@ window.CAREERS = {
       "title": "[프로젝트DL] 던전/전투 클라이언트 프로그래머 (서울지사)",
       "url": "https://careers.nexon.com/recruit/10016?corpCodes=NO",
       "published": "2026-07-02",
-      "status": "공개 API에서 미마감으로 확인; 수시채용 조기 종료 가능",
+      "status": "확인일 기준 마감되지 않은 수시채용 공고입니다. 채용이 완료되면 일찍 종료될 수 있습니다.",
       "experience": "Unity 클라이언트 경력 7년 이상",
       "languages": [
         "C#"
@@ -69,7 +69,7 @@ window.CAREERS = {
         "라이브 서비스"
       ],
       "portfolio": "선택 제출로 명시됨",
-      "classConnection": "엔진/언어 조합이 프로젝트별로 다름. 입력과 상태, 전투 규칙, 실행 후 수정 연결.",
+      "classConnection": "게임 엔진과 언어의 조합은 프로젝트마다 다릅니다. 오늘은 키 입력이 게임 상태를 어떻게 바꾸는지 살펴보고, 전투 규칙을 고친 뒤 다시 실행해 봅니다.",
       "capture": "assets/it-careers/neople-unity.jpg?v=c9509db628"
     },
     {
@@ -79,7 +79,7 @@ window.CAREERS = {
       "title": "게임 보안 개발자 모집",
       "url": "https://career.netmarble.com/announce/view?anno_id=1812",
       "published": "2026-05-11",
-      "status": "공식 목록·상세에 게시; 날짜2999-12-31은 상시채용 표시용 값으로 학생 화면에 노출하지 말 것",
+      "status": "공식 채용 목록과 상세 페이지에서 확인한 상시채용 공고입니다.",
       "languages": [
         "C",
         "C++"
@@ -102,7 +102,7 @@ window.CAREERS = {
         "Unity·Unreal 구조",
         "AI 활용 보안 서비스"
       ],
-      "classConnection": "같은 게임 분야에도 개발·보안·QA 등 역할이 다름. 입력값 확인과 비정상 동작 검사를 수업에 연결.",
+      "classConnection": "게임 회사에는 게임 개발뿐 아니라 보안과 QA 업무도 있습니다. 오늘 만든 프로그램에 잘못된 값을 넣거나 예상 밖의 조작을 해 보며, 문제가 생기는 조건을 찾아봅니다.",
       "capture": "assets/it-careers/netmarble-security.jpg?v=8b539b4aa4"
     },
     {
@@ -113,7 +113,7 @@ window.CAREERS = {
       "url": "https://career.netmarble.com/announce/view?anno_id=1883",
       "published": "2026-09-29",
       "endDate": "2026-12-31",
-      "status": "공식 목록·상세 게시. 실제 채용 진행 상태는 다시 확인",
+      "status": "공식 채용 목록과 상세 페이지에서 본문을 확인했습니다. 이후 진행 상태는 원문에서 확인할 수 있습니다.",
       "experience": "관련 연구·개발 2년 이상(석·박사 연구 포함)",
       "languages": [],
       "tools": [
@@ -135,7 +135,7 @@ window.CAREERS = {
         "VLM 평가·추론",
         "실시간 처리 최적화"
       ],
-      "classConnection": "AI가 답을 만드는 것뿐 아니라 결과 검증·실패 복구도 일이라는 점. 두 트랙 요구사항을 섞지 말 것.",
+      "classConnection": "게임 에이전트와 음성 AI는 서로 다른 모집 트랙입니다. 업무와 자격을 트랙별로 읽어 봅니다. 오늘은 AI가 만든 결과를 직접 실행하고, 실패한 상황을 설명해 다시 고치는 과정을 연습합니다.",
       "capture": "assets/it-careers/netmarble-vlm.jpg?v=2a6be2cda5"
     },
     {
@@ -144,7 +144,7 @@ window.CAREERS = {
       "company": "NC 산하 빅파이어게임즈",
       "title": "[단기계약직][신더시티] 밸런스 디자이너 모집",
       "url": "https://bigfiregames.career.greetinghr.com/ko/o/150926",
-      "status": "공식 페이지 열람 확인; 게시·마감일 미기재, 조기 종료·연장 가능",
+      "status": "공식 공고 본문을 확인했습니다. 게시일과 마감일은 적혀 있지 않으며, 채용 일정은 바뀔 수 있습니다.",
       "experience": "경력0~2년; 단기계약직3개월",
       "languages": [],
       "tools": [
@@ -167,7 +167,7 @@ window.CAREERS = {
         "도구 활용",
         "여러 직군과 소통"
       ],
-      "classConnection": "속도·생성 간격·점수·체력을 한 번에 하나 바꾸고 플레이 기록으로 비교. 밸런싱 역할에 특정 엔진·C++가 필수라고 덧붙이지 말 것.",
+      "classConnection": "게임의 속도·생성 간격·점수·체력 중 하나를 바꾸고, 플레이 기록을 비교해 봅니다. 이 밸런싱 공고에는 특정 언어나 엔진을 필수로 적고 있지 않습니다.",
       "capture": "assets/it-careers/nc-balance.jpg?v=f4985c9fde"
     },
     {
@@ -176,7 +176,7 @@ window.CAREERS = {
       "company": "크래프톤",
       "title": "[Palworld Mobile] System Designer (3년 이상)",
       "url": "https://job-boards.greenhouse.io/krafton/jobs/8836432002",
-      "status": "상시채용 공고 게시, 조기 마감 가능; 날짜 미기재",
+      "status": "상시채용으로 게시된 공고입니다. 게시일과 마감일은 적혀 있지 않으며, 일찍 마감될 수 있습니다.",
       "experience": "관련 게임 기획3년 이상",
       "languages": [],
       "tools": [
@@ -193,7 +193,7 @@ window.CAREERS = {
         "원작 플레이 경험50시간"
       ],
       "portfolio": "필수",
-      "classConnection": "게임 구성요소를 문장·그림·수치표로 먼저 설계하고 친구 피드백 반영. 공고에 언어·엔진 요구사항이 없으므로 추측 금지.",
+      "classConnection": "게임 구성요소를 문장·그림·수치표로 먼저 정리하고, 친구가 플레이한 의견을 반영해 봅니다. 이 시스템 기획 공고에는 특정 언어나 엔진 요구사항이 적혀 있지 않습니다.",
       "capture": "assets/it-careers/krafton-system.jpg?v=b11fc82bb2"
     },
     {
@@ -202,7 +202,7 @@ window.CAREERS = {
       "company": "크래프톤",
       "title": "[AI Research Div.] Research Engineer - Vision Language Action Game Agent (2년 이상 / 인턴)",
       "url": "https://job-boards.greenhouse.io/krafton/jobs/8417764002",
-      "status": "상시채용 공고 게시, 조기 마감 가능; 날짜 미기재",
+      "status": "상시채용으로 게시된 공고입니다. 게시일과 마감일은 적혀 있지 않으며, 일찍 마감될 수 있습니다.",
       "experience": "관련 석·박사 재학, 인턴6개월",
       "languages": [],
       "tools": [
@@ -223,7 +223,7 @@ window.CAREERS = {
         "VLA 프로젝트 성과",
         "다른 직군과 협업"
       ],
-      "classConnection": "입력→판단→행동→관찰로 AI와 게임을 연결하되 물리 로봇 채용으로 표시하지 말 것. 특정 언어가 공고에 없음을 명시.",
+      "classConnection": "이 공고는 게임 안에서 행동하는 AI 에이전트를 다룹니다. 화면과 상태를 읽고, 행동을 고르고, 결과를 관찰하는 흐름을 오늘의 게임 규칙과 연결해 봅니다. 특정 프로그래밍 언어는 공고에 적혀 있지 않습니다.",
       "capture": "assets/it-careers/krafton-vla.jpg?v=903bbbcdee"
     },
     {
@@ -232,7 +232,7 @@ window.CAREERS = {
       "company": "카카오페이증권",
       "title": "신용/결제 백엔드 개발자(시니어)",
       "url": "https://career.kakaopaysec.com/job_posting/Xlgh5l1J",
-      "status": "채용 시 마감으로 게시; 날짜 미기재",
+      "status": "채용이 완료되면 마감하는 공고입니다. 게시일과 마감일은 적혀 있지 않습니다.",
       "experience": "경력7년 이상",
       "languages": [
         "Java 또는 Kotlin"
@@ -254,7 +254,7 @@ window.CAREERS = {
         "대규모 서비스 설계·운영",
         "성능 분석"
       ],
-      "classConnection": "Java 기반 업무 시스템의 실제 예. JavaScript와 다른 언어이며 브라우저에서 Java 소스가 그대로 실행되지는 않음. 견적 계산 요구사항·예외 검사를 작은 학습 과제로 연결.",
+      "classConnection": "Java를 업무 시스템에 사용하는 사례입니다. 오늘은 견적 계산의 조건을 정하고, 정상 주문과 잘못된 주문의 결과를 비교해 봅니다. Java와 JavaScript는 서로 다른 언어이며, 웹 화면을 만드는 역할도 구분해서 살펴봅니다.",
       "capture": "assets/it-careers/kakao-java.jpg?v=f2eb970a6e"
     },
     {
@@ -263,7 +263,7 @@ window.CAREERS = {
       "company": "카카오헬스케어",
       "title": "[경력] Product Engineer (Backend & Data)",
       "url": "https://recruit.kakaohealthcare.com/job_posting/X7psnSjh",
-      "status": "채용 시 마감으로 게시; 날짜 미기재",
+      "status": "채용이 완료되면 마감하는 공고입니다. 게시일과 마감일은 적혀 있지 않습니다.",
       "experience": "경력5년 이상",
       "languages": [
         "Java",
@@ -290,7 +290,7 @@ window.CAREERS = {
         "문제 구조화·협업",
         "데이터 정합성과 장애 대응"
       ],
-      "classConnection": "목록·계산·검증·저장을 구분해 보고 작은 업무 도구 제작과 연결. 이 직무 기술스택은 언어별 우열이 아닌 함께 사용하는 사례.",
+      "classConnection": "자료를 모으고, 계산하고, 값을 확인하고, 저장하는 일을 나누어 봅니다. Python 판매·재고 도구에서도 이 흐름을 연습합니다. 공고의 여러 언어와 도구가 각각 어떤 일을 맡는지도 찾아봅니다.",
       "capture": "assets/it-careers/kakao-health-data.jpg?v=7cbe057899"
     },
     {
@@ -301,7 +301,7 @@ window.CAREERS = {
       "url": "https://recruit.navercorp.com/rcrt/view.do?annoId=30005656&lang=ko",
       "published": "2026-11-05",
       "endDate": "2026-11-15 23:59",
-      "status": "확인일 기준 원문 기간 내; 선발 완료 시 조기 종료 가능",
+      "status": "확인일은 원문에 안내된 모집 기간 안에 있습니다. 선발이 완료되면 일찍 종료될 수 있습니다.",
       "experience": "관련 박사 또는 석사+실무2년 이상",
       "languages": [
         "Python/PyTorch 또는 C++"
@@ -329,7 +329,7 @@ window.CAREERS = {
         "공개 모델 재현·확장",
         "AI에이전트로 개발 생산성 개선"
       ],
-      "classConnection": "비전은 영상·공간을 읽는 일, 피지컬 AI는 이를 실제 환경의 행동·검증에 연결하는 일로 설명. 영상 인식이 곧 로봇 제어 전체는 아님.",
+      "classConnection": "비전은 영상과 공간에서 정보를 읽는 기술입니다. 로봇이 움직이려면 인식 결과를 행동으로 연결하고 실제 환경에서 검증하는 과정도 필요합니다. 공고에서 인식과 행동에 해당하는 업무를 각각 찾아봅니다.",
       "capture": "assets/it-careers/naver-robot-vision.jpg?v=d026406e79"
     },
     {
@@ -338,7 +338,7 @@ window.CAREERS = {
       "company": "토스증권",
       "title": "프론트엔드 플랫폼 엔지니어 (Frontend Platform Engineer)",
       "url": "https://toss.im/career/job-detail?job_id=5130165003",
-      "status": "공고 본문 확인; 게시·마감일 미기재",
+      "status": "공식 공고 본문을 확인했습니다. 게시일과 마감일은 적혀 있지 않습니다.",
       "languages": [
         "TypeScript"
       ],
@@ -356,7 +356,7 @@ window.CAREERS = {
         "웹 성능·브라우저 지원",
         "도구·패키지·배포 경험"
       ],
-      "classConnection": "사용자가 조작하는 웹 화면과 개발 도구·배포를 구분. HTML/CSS/JavaScript 입문에서 TypeScript/React로 확장 가능.",
+      "classConnection": "웹 화면을 만드는 일과 개발 도구·배포를 다루는 일을 나누어 봅니다. 오늘 사용하는 HTML·CSS·JavaScript가 공고의 TypeScript·React와 어떻게 이어지는지 살펴봅니다.",
       "capture": "assets/it-careers/toss-frontend.jpg?v=7f90a51b81"
     },
     {
@@ -365,7 +365,7 @@ window.CAREERS = {
       "company": "토스플레이스",
       "title": "데이터 분석가 (Data Analyst)",
       "url": "https://toss.im/career/job-detail?job_id=5425435003",
-      "status": "공고 본문 확인; 게시·마감일 미기재",
+      "status": "공식 공고 본문을 확인했습니다. 게시일과 마감일은 적혀 있지 않습니다.",
       "languages": [
         "SQL"
       ],
@@ -384,7 +384,7 @@ window.CAREERS = {
         "분석으로 전략 실행"
       ],
       "portfolio": "필수",
-      "classConnection": "Python이 모든 데이터 직무의 필수 언어라고 단정하지 않기. 손계산·결과 비교·쉬운 설명과 연결.",
+      "classConnection": "이 데이터 분석 공고는 SQL과 Tableau를 제시합니다. 분석한 수치를 의사결정에 연결하고 다른 사람에게 설명하는 역량도 요구합니다. 오늘은 손으로 계산한 값과 프로그램 결과를 비교하고, 차이가 난 이유를 말해 봅니다.",
       "capture": "assets/it-careers/toss-data.jpg?v=e3582245d7"
     },
     {
@@ -403,7 +403,7 @@ window.CAREERS = {
       },
       "published": "2026-10-29 00:00",
       "endDate": "2026-11-22 23:59",
-      "status": "원문 기간 내·공개 목록 게시, 분야별 채용 완료 시 조기 종료 가능",
+      "status": "확인일은 원문에 안내된 모집 기간 안에 있습니다. 분야별 채용이 완료되면 일찍 종료될 수 있습니다.",
       "experience": "관련 석사 이상·직무 관련5년 이상/총13년 이내(석·박사 포함)",
       "languages": [
         "Python",
@@ -429,7 +429,7 @@ window.CAREERS = {
         "다른 산업의 유지보수 데이터 분석",
         "시계열·최적화 모델링"
       ],
-      "classConnection": "방산에도 데이터·재고·정비 분야가 있음을 살펴보고, Python 판매·재고의 기본 집계와 연결. 간단한 재고 도구는 수요예측 AI와 다름.",
+      "classConnection": "방산에서도 재고와 정비에 관한 데이터를 다룹니다. 오늘은 Python으로 판매·재고를 집계해 봅니다. 이 기본 계산에서 수요예측 AI로 나아가려면 어떤 데이터와 검증이 더 필요할지 생각해 봅니다.",
       "capture": "assets/it-careers/hanwha-defense-data.jpg?v=bcb87a41f0"
     },
     {
@@ -448,7 +448,7 @@ window.CAREERS = {
       },
       "published": "2026-11-03 15:00",
       "endDate": "2026-11-15 23:59",
-      "status": "원문 기간 내·공개 목록 게시, 적합인력 채용 시 조기 종료 가능",
+      "status": "확인일은 원문에 안내된 모집 기간 안에 있습니다. 적합한 인력을 채용하면 일찍 종료될 수 있습니다.",
       "experience": "로봇·공장자동화·로봇SI 등 경력5년 이상",
       "languages": [],
       "tools": [
@@ -475,7 +475,7 @@ window.CAREERS = {
         "현장 양산까지 수행",
         "제조자동화 기술제안"
       ],
-      "classConnection": "피지컬 AI에는 모델 연구 이외에 요구사항·고객 대화·시스템 통합을 맡는 역할도 있음. 원문에 언어가 없으므로 Python/C++ 필수라고 추가하지 않음.",
+      "classConnection": "피지컬 AI 프로젝트에는 요구사항 정리, 고객과의 대화, 여러 장치와 기술의 연결을 맡는 역할도 있습니다. 이 공고는 특정 언어보다 기술 통합 경험과 소통·조율 역량을 제시합니다. 외주 과정에서 고객의 요청을 확인하고 작업 범위를 정하는 활동과 연결해 봅니다.",
       "capture": "assets/it-careers/hanwha-physical-pm.jpg?v=f1e2b7113c"
     }
   ],

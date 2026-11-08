@@ -21,3 +21,5 @@ main:focus{outline:none}.runtime-credit{font-size:11px;color:var(--muted);margin
 .career-grid{align-items:start}
 
 .table-scroll[tabindex]:focus-visible{outline:3px solid #c47718;outline-offset:4px}
+
+#game-import-status{overflow-wrap:anywhere}

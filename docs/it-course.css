@@ -28,3 +28,6 @@ main:focus{outline:none}.runtime-credit{font-size:11px;color:var(--muted);margin
 .feature-checks{min-width:700px}.feature-checks td:last-child{min-width:240px}
 .table-scroll-hint:not([hidden])+.table-scroll.section{margin-top:8px}
 .balance-controls{align-self:start}#balance-preview{height:550px}
+
+.career-concepts{margin:20px 0}.career-concepts>div{display:grid;grid-template-columns:140px minmax(0,1fr);gap:18px;padding:18px 0;border-top:1px solid var(--line)}.career-concepts dt{font-size:15px;font-weight:700;color:var(--green)}.career-concepts dd{margin:0;min-width:0;font-size:14px}.career-concepts dd p{margin:8px 0 0}.career-concepts dd>b{font-weight:600}
+@media(max-width:560px){.career-concepts>div{grid-template-columns:1fr;gap:8px}}

@@ -72,11 +72,15 @@ document.addEventListener('submit',async event=>{const form=event.target;if(!['j
    if(!learner.room.open)throw Error('접수가 마감되었습니다. 선생님께 요청한 뒤 수업 상태를 다시 확인하세요.');
    const file=selectedWorkFile(),problem=fileProblem(file);if(problem)throw Error(problem);
    A.state.fields.workCode=String(fields.get('workCode'));A.state.fields.workTitle=String(fields.get('title'));A.state.fields.workSummary=String(fields.get('summary'));A.save();
+   const record=JSON.parse(JSON.stringify({format:'busanhc-it-work-v2',track:learner.room.track,fields:A.state.fields,outputs:A.state.outputs,balance:A.state.balance}));
    const bytes=new Uint8Array(await file.arrayBuffer());let raw='';for(let i=0;i<bytes.length;i+=8192)raw+=String.fromCharCode(...bytes.subarray(i,i+8192));
-   const payload={code:String(fields.get('workCode')),title:String(fields.get('title')),summary:String(fields.get('summary')),filename:file.name,file:btoa(raw),record:{format:'busanhc-it-work-v2',track:learner.room.track,fields:A.state.fields,outputs:A.state.outputs,balance:A.state.balance}};
+   const payload={code:String(fields.get('workCode')),title:String(fields.get('title')),summary:String(fields.get('summary')),filename:file.name,file:btoa(raw),record};
    const signature=await digest(JSON.stringify(payload));if(learner.pending?.signature!==signature)learner.pending={signature,requestId:crypto.randomUUID()};payload.requestId=learner.pending.requestId;remember();
    message('submission-state','파일과 실습 기록을 보내고 있습니다. 접수 번호를 기다려 주세요.');const result=await call('/api/submissions',{method:'POST',data:payload});if(!result.saved||!result.receipt?.id)throw Error('접수 번호를 확인하지 못했습니다. 같은 내용으로 다시 시도하세요.');
-   A.state.fields.workCode=payload.code;A.state.fields.workTitle=payload.title;A.state.fields.workSummary=payload.summary;A.save();document.querySelector('#new-receipt').innerHTML=receiptCard(result.receipt);message('submission-state','접수했습니다. 실제 파일이 저장되었습니다. 아래 접수증을 확인하세요.');await loadMe();
+   const newerDraft=A.state.fields.workCode!==payload.code||A.state.fields.workTitle!==payload.title||A.state.fields.workSummary!==payload.summary||selectedWorkFile()!==file;
+   const receiptRoot=document.querySelector('#new-receipt');if(receiptRoot)receiptRoot.innerHTML=receiptCard(result.receipt);
+   message('submission-state',newerDraft?'접수했습니다. 보내는 동안 고친 입력이나 파일 선택은 그대로 남겨 두었습니다. 이번 접수 내용은 아래 접수증에서 확인하세요.':'접수했습니다. 실제 파일이 저장되었습니다. 아래 접수증을 확인하세요.');
+   if(document.querySelector('#submission-work'))await loadMe();
   }
   if(form.id==='teacher-login-form'){const r=await call('/api/teacher/login',{method:'POST',data:{key:fields.get('teacherKey')},token:''});teacherToken=r.token;sessionStorage.setItem('busanhc-it-teacher',teacherToken);form.reset();await teacherEnter();}
   if(form.id==='room-form'){const r=await call('/api/rooms',{method:'POST',data:{label:fields.get('label'),track:fields.get('track')},teacher:true});selectedRoom=r.id;document.querySelector('#new-room').innerHTML=`<div class="receipt"><h3>${E(r.label)} · ${E(r.track)} 과정</h3><p>학생에게 알려 줄 수업 코드: <strong style="font-size:25px;letter-spacing:3px">${E(r.code)}</strong></p><p class="note">코드는 지금 저장해 두세요. 접수 목록에는 코드 원문을 다시 표시하지 않습니다.</p><button class="secondary" data-save-room="${E(r.code)}" data-label="${E(r.label)}">수업 코드 파일로 저장 ↓</button></div>`;await loadRooms();}

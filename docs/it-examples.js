@@ -58,6 +58,7 @@ for name, quantity in orders:
     sell(name, quantity)
 print("하루 매출:", revenue)
 print("성공한 판매:", history)
+print("남은 재고:", products)
 # TODO: 선택한 기능이 베스트 상품이라면 판매 수량을 집계합니다.`,
  javaFirst:`public class Main {
     public static void main(String[] args) {
